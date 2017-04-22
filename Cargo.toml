@@ -4,6 +4,8 @@ version = "0.1.0"
 authors = ["Pierre Guthauser <pierreguthauser@gmail.com>"]
 
 [dependencies]
-piston_window = "0.61.0"
 piston2d-graphics = "0.21.1"
 conrod = "0.51.1"
+piston = "0.31.4"
+pistoncore-sdl2_window = "0.41.0"
+piston2d-opengl_graphics = "0.42.1"
