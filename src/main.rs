@@ -36,7 +36,7 @@ fn main() {
 
         if let Some(args) = e.render_args() {
             gl.draw(args.viewport(), |c, g| {
-                let app = app::AppBuilder::new(g, c).build();
+                let mut app = app::AppBuilder::new(g, c).build();
                 app.render();                
             });
         }
