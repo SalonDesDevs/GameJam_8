@@ -25,8 +25,8 @@ pub trait State {
 }
 
 impl<'a> App<'a> {
-    pub fn render(&self) {
-       self.state.render(&self);
+    pub fn render(&mut self) {
+       self.state.render(self); 
     }
 }
 
