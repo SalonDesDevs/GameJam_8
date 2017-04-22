@@ -17,6 +17,7 @@ const SIZE: [u32; 2] = [600, 600];
 const FULLSCREEN: bool = false;
 
 mod app;
+mod states;
 
 fn main() {
     let opengl = OpenGL::V3_2;

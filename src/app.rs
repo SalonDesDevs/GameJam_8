@@ -2,11 +2,12 @@ use graphics::draw_state::DrawState;
 use opengl_graphics::GlGraphics;
 use graphics::context::Context;
 use graphics::*;
-use opengl_graphics::glyph_cache::GlyphCache;
+use states::*;
 
 pub struct App<'a> {
-    graphics: & 'a mut GlGraphics,
-    context: Context
+    pub graphics: & 'a mut GlGraphics,
+    pub context: Context,
+    pub state: Box<State>
 }
 
 pub struct AppBuilder<'a> {
@@ -14,15 +15,18 @@ pub struct AppBuilder<'a> {
     context: Context
 }
 
+pub trait State {
+    
+    fn create(&mut self, app: &mut App) {}
+
+    fn render(&mut self, app: &mut App) {}
+
+    fn close(&mut self, app: &mut App) {}
+}
+
 impl<'a> App<'a> {
-
-    pub fn render(&mut self) {
-        let mut glyphs = GlyphCache::new("assets/FiraSans-Regular.ttf").unwrap();
-        let transform = self.context.transform.trans(10.0, 100.0);
-
-        clear([0.0, 0.0, 0.0, 1.0], self.graphics);
-        text::Text::new_color([0.0, 1.0, 1.0, 1.0], 32)
-            .draw("Hello world ! ", &mut glyphs, &(self.context.draw_state), transform, self.graphics);
+    pub fn render(&self) {
+       self.state.render(&self);
     }
 }
 
@@ -38,7 +42,8 @@ impl<'a> AppBuilder<'a> {
     pub fn build(self) -> App<'a> {
         App { 
             graphics: self.graphics,
-            context: self.context
+            context: self.context,
+            state: Box::new(loading::Loading)
         } 
     }
 
